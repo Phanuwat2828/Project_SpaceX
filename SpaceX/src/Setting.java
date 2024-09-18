@@ -1,7 +1,7 @@
 
 public class Setting {
     private int Count_Meteor = 7 ;
-    private boolean hitbox = true;
+    private boolean hitbox = false;
     private int Speed_f = 3;
     private int Speed_l = 14;
     private int with_space = 650;
@@ -11,18 +11,18 @@ public class Setting {
         return this.Count_Meteor;
     }
     public int getHight_space() {
-        return hight_space;
+        return this.hight_space;
     }
     public int getSpeed_f() {
-        return Speed_f;
+        return this.Speed_f;
     }
     public int getSpeed_l() {
-        return Speed_l;
+        return this.Speed_l;
     }
     public int getWith_space() {
-        return with_space;
+        return this.with_space;
     }
     public boolean gethitbox(){
-        return hitbox;
+        return this.hitbox;
     }
 }

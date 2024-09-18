@@ -16,6 +16,7 @@ public class Data {
         setSpeedPX_();
         setSpeed();
     }
+
     public void setSpeed(){
         for(int i=0;i<Count_Meteor ;i++){
             Speed_[i] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
@@ -46,6 +47,8 @@ public class Data {
             int rny = new Random().nextInt(50,setting.getHight_space()-100);
             Image pathImage_rn = Toolkit.getDefaultToolkit().createImage(
                 System.getProperty("user.dir")+
+                File.separator+"SpaceX"+
+                File.separator+"src"+
                 File.separator+"image"+
                 File.separator+new Random().nextInt(1,11)+
                 ".png"

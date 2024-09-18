@@ -32,8 +32,8 @@ public class Container extends JPanel{
                 if(setting.gethitbox()){
                     g.setColor(Color.GREEN);
                     g.drawString("X:"+x+"Y :"+y,x, y-5);
-                }
-                g.drawRect(x,y,50, 50);
+                    g.drawRect(x,y,50, 50);
+                }                
                 g.drawImage(path_image, x, y,50,50,this);
             }
         }
