@@ -4,24 +4,21 @@ import java.io.File;
 import java.util.Random;
 
 public class Data {
-    private Setting set = new Setting();
-    private int Count_Meteor = set.getCount_Meteor();
+    private Setting setting = new Setting();
+    private int Count_Meteor = setting.getCount_Meteor();
     private int[][] position_M= new int[Count_Meteor][2];
     private Image[] image = new Image[Count_Meteor];
     private Boolean[] status_ = new Boolean[Count_Meteor];
     private int[][] mode = new int[Count_Meteor][2];
     private int[] Speed_ = new int[Count_Meteor];
-
-
     Data(){
         setposition();
         setSpeedPX_();
         setSpeed();
     }
-
     public void setSpeed(){
         for(int i=0;i<Count_Meteor ;i++){
-            Speed_[i] = new Random().nextInt(1,11);
+            Speed_[i] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
         }
 
     }
@@ -45,12 +42,18 @@ public class Data {
     public void setposition(){
         int i=0;
         while(i<Count_Meteor){
-            int rnx = new Random().nextInt(50,550);
-            int rny = new Random().nextInt(50,600);
+            int rnx = new Random().nextInt(50,setting.getWith_space()-100);
+            int rny = new Random().nextInt(50,setting.getHight_space()-100);
+            Image pathImage_rn = Toolkit.getDefaultToolkit().createImage(
+                System.getProperty("user.dir")+
+                File.separator+"image"+
+                File.separator+new Random().nextInt(1,11)+
+                ".png"
+            );
             if(check_position(rnx, rny)){
                 position_M[i][0] = rnx;
                 position_M[i][1] = rny;
-                image[i]= Toolkit.getDefaultToolkit().createImage(System.getProperty("user.dir")+File.separator+"image"+File.separator+new Random().nextInt(1,11)+".png");
+                image[i]= pathImage_rn;
                 status_[i] = true;
                 i+=1;
             }
@@ -65,7 +68,9 @@ public class Data {
     public boolean check_position(int one,int two){
         boolean status = true;
         for(int i=0;i<Count_Meteor;i++){
-            if(one<position_M[i][0]+100 && one>position_M[i][0]-100 && two<position_M[i][1]+100 && two>position_M[i][1]-100){
+            int x =position_M[i][0];
+            int y =position_M[i][1];
+            if(one<x+100 && one>x-100 && two<y+100 && two>y-100){
                status = false;
                break;
             }
@@ -84,30 +89,27 @@ public class Data {
             }
         }
     }
-    public void sethit(int one,int two){
-        int hold[] = mode[one];
-        mode[one] = mode[two];
-        mode[two] = hold;
-    }
     public void setChange(char text,int position){
+        int modeX =mode[position][0];
+        int modeY =mode[position][1];
         if(text=='x'){
-            Speed_[position] = new Random().nextInt(1,11);
-            if(mode[position][0]>0){
+            Speed_[position] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
+            if(modeX>0){
                 mode[position][0]=-1;
             }else{
                 mode[position][0]=+1;
             }
-            if(mode[position][1]==0){
+            if(modeY==0){
                 mode[position][1] = -1;
             }
         }else if(text=='y'){
-            Speed_[position] = new Random().nextInt(1,11);
-            if(mode[position][1]>0){
+            Speed_[position] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
+            if(modeY>0){
                 mode[position][1]=-1;
             }else{
                 mode[position][1]=+1;
             }
-            if(mode[position][0]==0){
+            if(modeX==0){
                 mode[position][0] = +1;
             }
         }
