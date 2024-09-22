@@ -4,11 +4,12 @@ public class RandomPosition extends Thread{
     private Data data;
     private int position;
     private JPanel panel;
-    private Setting setting = new Setting();
-    RandomPosition(Data data,int position,JPanel panel){
+    private Setting setting;
+    RandomPosition(Data data,int position,JPanel panel,Setting setting){
         this.data = data;
         this.position = position;
         this.panel = panel;
+        this.setting = setting;
     }
     public Boolean check_position(int position_){
         int position[][] = data.getPosition_M();
@@ -19,6 +20,7 @@ public class RandomPosition extends Thread{
             int xc = position[i][0];
             int yc = position[i][1];
             if(i!=position_){
+                
                 if(Math.abs(x - xc) < 50 && Math.abs(y - yc) < 50){
                     data.setChange('x', position_); // เปลี่ยนทิศทางในแกน X
                     data.setChange('y', position_); // เปลี่ยนทิศทางในแกน Y

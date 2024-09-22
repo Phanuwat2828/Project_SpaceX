@@ -4,19 +4,36 @@ import java.io.File;
 import java.util.Random;
 
 public class Data {
-    private Setting setting = new Setting();
-    private int Count_Meteor = setting.getCount_Meteor();
-    private int[][] position_M= new int[Count_Meteor][2];
-    private Image[] image = new Image[Count_Meteor];
-    private Boolean[] status_ = new Boolean[Count_Meteor];
-    private int[][] mode = new int[Count_Meteor][2];
-    private int[] Speed_ = new int[Count_Meteor];
-    Data(){
+    private Setting setting ;
+    private int Count_Meteor;
+    private int[][] position_M;
+    private Image[] image;
+    private Boolean[] status_;
+    private int[][] mode ;
+    private int[] Speed_;
+    private Image boomb = Toolkit.getDefaultToolkit().createImage(
+        System.getProperty("user.dir")+
+        File.separator+"SpaceX"+
+        File.separator+"src"+
+        File.separator+"image"+
+        File.separator+"bomb"+
+        ".gif"
+    );
+    Data(Setting setting){
+        this.setting = setting;
+        this.Count_Meteor = setting.getCount_Meteor();
+        this.position_M = new int[Count_Meteor][2];
+        image = new Image[Count_Meteor];
+        status_ = new Boolean[Count_Meteor];
+        mode = new int[Count_Meteor][2];
+        Speed_ = new int[Count_Meteor];
         setposition();
         setSpeedPX_();
         setSpeed();
     }
-
+    public Image getBomb(){
+        return this.boomb;
+    }
     public void setSpeed(){
         for(int i=0;i<Count_Meteor ;i++){
             Speed_[i] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
@@ -53,7 +70,7 @@ public class Data {
                 File.separator+new Random().nextInt(1,11)+
                 ".png"
             );
-            if(check_position(rnx, rny)){
+            if(true){
                 position_M[i][0] = rnx;
                 position_M[i][1] = rny;
                 image[i]= pathImage_rn;

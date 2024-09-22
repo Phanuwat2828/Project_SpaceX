@@ -1,12 +1,22 @@
+import java.util.Scanner;
 
 public class Setting {
-    private int Count_Meteor = 7 ;
+    private int Count_Meteor = 0 ;
     private boolean hitbox = false;
     private int Speed_f = 3;
     private int Speed_l = 14;
     private int with_space = 650;
     private int hight_space = 700;
+    
+    Setting(){
+        System.out.print("Enter SpaceX : ");
+        Scanner input = new Scanner(System.in);
+        Count_Meteor = input.nextInt();
+    }
 
+    public void setCount_Meteor(int count_Meteor) {
+        this.Count_Meteor = count_Meteor;
+    }
     public int getCount_Meteor() {
         return this.Count_Meteor;
     }
