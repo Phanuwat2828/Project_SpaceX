@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Setting {
     private int Count_Meteor = 0 ;
     private boolean hitbox = false;
-    private int Speed_f = 3;
-    private int Speed_l = 14;
+    private int Speed_f = 7;
+    private int Speed_l = 30;
     private int with_space = 650;
     private int hight_space = 700;
     
