@@ -1,7 +1,10 @@
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Data {
     private Setting setting ;
@@ -31,6 +34,12 @@ public class Data {
         setposition();
         setSpeed();
     }
+    public void setPosition_X(int position_M,int i) {
+        this.position_M[i][0] += position_M;
+    }
+    public void setPosition_Y(int position_M,int i) {
+        this.position_M[i][1] += position_M;
+    }
     public Image getBomb(){
         return this.boomb;
     }
@@ -42,6 +51,9 @@ public class Data {
     }
     public int[] getSpeed_() {
         return Speed_;
+    }
+    public int getSpeed_(int i) {
+        return Speed_[i];
     }
 
     public int[][] getMode() {

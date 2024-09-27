@@ -45,8 +45,11 @@ public class Container extends JPanel{
             if(data.getStatus_()[i]){
                 if(setting.gethitbox()){
                     g.setColor(Color.GREEN);
-                    g.drawString("X:"+x+"Y :"+y,x, y-5);
+                    g.drawString("Number : "+(i+1),x-30, y-45);
+                    g.drawString("X:"+x+"Y :"+y,x-30, y-30);
                     g.drawRect(x,y,50, 50);
+                    g.drawString("speedX : "+data.getMode()[i][0]+"px per "+data.getSpeed_(i),x-30, y-20);
+                    g.drawString("speedY : "+data.getMode()[i][1]+"px per "+data.getSpeed_(i),x-30, y-10);
                 }                
                 g.drawImage(path_image, x, y,50,50,this);
                 if(this.status_bomb){
