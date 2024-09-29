@@ -17,7 +17,7 @@ public class RandomPosition extends Thread{
         Rectangle r1 = new Rectangle(x, y, 50, 50);
     
         for (int i = 0; i < setting.getCount_Meteor(); i++) {
-            if (i != position_) {
+            if (i != position_ && data.getStatus_(i)) {
                 int xc = position[i][0];
                 int yc = position[i][1];
                 Rectangle r2 = new Rectangle(xc, yc, 50, 50);
@@ -25,7 +25,6 @@ public class RandomPosition extends Thread{
                 // คำนวณพื้นที่ที่ทับซ้อนกัน
                 int overlapX = Math.min(r1.x + r1.width, r2.x + r2.width) - Math.max(r1.x, r2.x);
                 int overlapY = Math.min(r1.y + r1.height, r2.y + r2.height) - Math.max(r1.y, r2.y); 
-    
                 // ตรวจสอบการชน
                 if (r1.intersects(r2)) {
                     // ตรวจสอบว่าควรเลื่อนในแนวแกน X หรือ Y
@@ -64,25 +63,30 @@ public class RandomPosition extends Thread{
     
     public void run(){
         while (true) {
-            int position_M[][] = data.getPosition_M();
-            int x = position_M[position][0];
-            int y = position_M[position][1];
-            if(x<=0 || x>=setting.getWith_space()-60){
-                data.setChange('x', position);
-            }else if(y<=10 || y>=setting.getWith_space()-60){
-                data.setChange('y', position);
+            if(data.getStatus_(position)){
+                int position_M[][] = data.getPosition_M();
+                int x = position_M[position][0];
+                int y = position_M[position][1];
+                if(x<=0 || x>=setting.getWith_space()-60){
+                    data.setChange('x', position);
+                }else if(y<=10 || y>=setting.getWith_space()-60){
+                    data.setChange('y', position);
+                }
+                check_position(x+data.getMode()[position][0],y+ data.getMode()[position][1],position);
+                int mode_x =data.getMode()[position][0];
+                int mode_y = data.getMode()[position][1];
+                data.setposition_puss(x+mode_x,y+mode_y, position);
+                
+                panel.repaint();
+                try {
+                    Thread.sleep(data.getSpeed_()[position]);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                break;
             }
-            check_position(x+data.getMode()[position][0],y+ data.getMode()[position][1],position);
-            int mode_x =data.getMode()[position][0];
-            int mode_y = data.getMode()[position][1];
-            data.setposition_puss(x+mode_x,y+mode_y, position);
             
-            panel.repaint();
-            try {
-                Thread.sleep(data.getSpeed_()[position]);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         
     }

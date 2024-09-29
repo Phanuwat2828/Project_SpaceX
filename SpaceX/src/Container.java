@@ -9,9 +9,7 @@ public class Container extends JPanel{
     private Setting setting ;
     private Data data ;
     private int Count_Meteor;
-    private int Mouse_x=0;
-    private int Mouse_y=0;
-    private boolean status_bomb = false;
+    private boolean[] status_bomb ;
     Container(Setting setting){
         this.setting = setting;
         this.Count_Meteor = setting.getCount_Meteor();
@@ -19,8 +17,11 @@ public class Container extends JPanel{
         setBackground(Color.BLACK);
         setSize(setting.getWith_space(),setting.getHight_space());
         setLocation(0,0);
+        status_bomb  = new boolean[Count_Meteor];
+
         for (int i = 0; i < Count_Meteor; i++) {
             if (data.getStatus_()[i]) {
+                this.status_bomb[i] = false;
                 RandomPosition tH = new RandomPosition(data, i, this,setting);
                 tH.start();
             }
@@ -28,10 +29,18 @@ public class Container extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                setMouse(e.getX(),e.getY());
-                setBomb(true);
-                Bomb t2 = new Bomb(get_here());
-                t2.start();
+                
+                if(e.getClickCount()==2  && data.getMouse(e.getX(),e.getY())){
+                    int position = data.setMouse(e.getX(),e.getY());
+                    if(data.getStatus_(position)){
+                        System.out.println("Boom");
+                        data.setStatus_(position,false);
+                        ShowBom bm1 = new ShowBom(get_here(),position);
+                        bm1.start();
+                    }
+                   
+                    
+                }
             }
         });
     }
@@ -52,18 +61,19 @@ public class Container extends JPanel{
                     g.drawString("speedY : "+data.getMode()[i][1]+"px per "+data.getSpeed_(i),x-30, y-10);
                 }                
                 g.drawImage(path_image, x, y,50,50,this);
-                if(this.status_bomb){
-                    g.drawImage(data.getBomb(), Mouse_x, Mouse_y, this);
+                
+            }else if(!data.getStatus_()[i]){ 
+                if(this.status_bomb[i]){
+                    g.drawImage(data.getBomb(), x-20, y-20, this);
                 }
             }
         }
     }
-    public void setMouse(int x,int y){
-        this.Mouse_x = x-50;
-        this.Mouse_y = y-50;
+    public void setBomb(boolean status,int i){
+        this.status_bomb[i] = status;
     }
-    public void setBomb(boolean status){
-        this.status_bomb = status;
+    public boolean getBomb(int i){
+        return this.status_bomb[i] ;
     }
     public Container get_here(){
         return this;

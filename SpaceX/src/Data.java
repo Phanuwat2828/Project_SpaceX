@@ -113,6 +113,12 @@ public class Data {
     public Boolean[] getStatus_() {
         return status_;
     }
+    public Boolean getStatus_(int position) {
+        return status_[position];
+    }
+    public void setStatus_(int position,boolean status) {
+        status_[position] = status;
+    }
     public void setSpeedPX_(){
         int i=0;
         while(i<Count_Meteor){
@@ -192,5 +198,25 @@ public class Data {
 
         }
         
+    }
+    public int setMouse(int x,int y){
+        int position =0;
+        for(int i=0;i<Count_Meteor;i++){
+            if(x>position_M[i][0] && x<position_M[i][0]+50 && y>position_M[i][1] && y<position_M[i][1]+50 && status_[i]){
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+    public boolean getMouse(int x,int y){
+        boolean position =false;
+        for(int i=0;i<Count_Meteor;i++){
+            if(x>position_M[i][0]-20 && x<position_M[i][0]+70 && y>position_M[i][1]-20 && y<position_M[i][1]+70 && status_[i]){
+                position = true;
+                break;
+            }
+        }
+        return position;
     }
 }
