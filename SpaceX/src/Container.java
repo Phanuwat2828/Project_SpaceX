@@ -29,17 +29,14 @@ public class Container extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                
-                if(e.getClickCount()==2  && data.getMouse(e.getX(),e.getY())){
-                    int position = data.setMouse(e.getX(),e.getY());
+                if(e.getClickCount()== 2  && data.getMouse(e.getX(),e.getY())){
+                    int position = data.setMouse(e.getX(),e.getY()); 
                     if(data.getStatus_(position)){
                         System.out.println("Boom");
                         data.setStatus_(position,false);
                         ShowBom bm1 = new ShowBom(get_here(),position);
                         bm1.start();
                     }
-                   
-                    
                 }
             }
         });
@@ -61,7 +58,6 @@ public class Container extends JPanel{
                     g.drawString("speedY : "+data.getMode()[i][1]+"px per "+data.getSpeed_(i),x-30, y-10);
                 }                
                 g.drawImage(path_image, x, y,50,50,this);
-                
             }else if(!data.getStatus_()[i]){ 
                 if(this.status_bomb[i]){
                     g.drawImage(data.getBomb(), x-20, y-20, this);

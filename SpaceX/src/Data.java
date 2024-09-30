@@ -1,11 +1,7 @@
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
-
 public class Data {
     private Setting setting ;
     private int Count_Meteor;
@@ -85,23 +81,6 @@ public class Data {
             );
             position_M[i][0] = rnx;
             position_M[i][1] = rny;
-            int x = position_M[i][0];
-            int y = position_M[i][1];
-            for(int j=0;j<setting.getCount_Meteor();j++){
-                int xc = position_M[j][0];
-                int yc = position_M[j][1];
-                if(j!=i){
-                    if(Math.abs(x - xc) < 60 && Math.abs(y - yc) < 60){
-                        if(Math.abs(x - xc) < 60){
-                            position_M[j][0] +=10;
-                        }
-                        if(Math.abs(y - yc) < 60){
-
-                            position_M[j][1] += 10;
-                        }
-                    }
-                }
-            }
             image[i]= pathImage_rn;
             status_[i] = true;
             i+=1;
@@ -131,6 +110,16 @@ public class Data {
             }
         }
     }
+    public int Random_Target1(){
+        int num = new Random().nextInt(0,2);
+        System.out.println(num);
+        return num;
+    }
+    public int Random_Target2(){
+        int num = new Random().nextInt(-1,1);
+        System.out.println(num);
+        return num;
+    }
     public void setChange(char text,int position){
         int modeX =mode[position][0];
         int modeY =mode[position][1];
@@ -139,38 +128,19 @@ public class Data {
             if(modeX>0){
                 mode[position][0]=-1;
             }else{
-                mode[position][0]=+1;
+                mode[position][0]=1;
             }
-
-            // int rn = new Random().nextInt(-1,2);//1
-            // if(rn!=modeY){
-            //     mode[position][1]=rn;
-
-            // }else if(rn>0){
-            //     mode[position][1]=-1;
-            // }else if(rn<0){
-            //     mode[position][1]=1;
-            // }
-            
         }else if(text=='y'){
             Speed_[position] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
             if(modeY>0){
                 mode[position][1]=-1;
             }else{
-                mode[position][1]=+1;
+                mode[position][1]=1;
             }
-            // int rn = new Random().nextInt(-1,2);
-            // if(rn!=modeX){
-            //     mode[position][0]=rn;
-            // }
-            // else if(rn>-1){
-            //     mode[position][0]=-1;
-            // }else if(rn<0){
-            //     mode[position][0]=1;
-            // }
         }
         
     }
+
     public void setChange_HIT(char text,int position){
         int modeX =mode[position][0];
         int modeY =mode[position][1];
@@ -179,12 +149,11 @@ public class Data {
             if(modeX>0){
                 mode[position][0]=-1;
             }else{
-                mode[position][0]=+1;
+                mode[position][0]=1;
             }
             if(modeY==0){
                 mode[position][1]=-1;
             }
-            
         }else if(text=='y'){
             Speed_[position] = new Random().nextInt(setting.getSpeed_f(),setting.getSpeed_l());
             if(modeY>0){
@@ -197,7 +166,6 @@ public class Data {
             }
 
         }
-        
     }
     public int setMouse(int x,int y){
         int position =0;

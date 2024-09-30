@@ -11,7 +11,7 @@ public class ShowBom extends Thread{
             data.setBomb(true,position);
             Thread.sleep(800);
             data.setBomb(false,position);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         

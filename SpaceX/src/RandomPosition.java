@@ -67,9 +67,9 @@ public class RandomPosition extends Thread{
                 int position_M[][] = data.getPosition_M();
                 int x = position_M[position][0];
                 int y = position_M[position][1];
-                if(x<=0 || x>=setting.getWith_space()-60){
+                if(x<=10 || x>=setting.getWith_space()-60){
                     data.setChange('x', position);
-                }else if(y<=10 || y>=setting.getWith_space()-60){
+                }else if(y<=10 || y>=setting.getHight_space()-84){
                     data.setChange('y', position);
                 }
                 check_position(x+data.getMode()[position][0],y+ data.getMode()[position][1],position);
